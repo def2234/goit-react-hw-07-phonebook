@@ -1,4 +1,4 @@
-import { contactReducer, contactsSlice } from './contactsSlice';
+import { contactReducer } from './contactsSlice';
 import { filterSlice } from './filterSlice';
 import persistReducer from 'redux-persist/es/persistReducer';
 import storage from 'redux-persist/lib/storage';
