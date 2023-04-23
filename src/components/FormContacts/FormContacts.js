@@ -1,16 +1,14 @@
 import { useState } from 'react';
 import { Form, Btn, Label, P, Input } from './FormContacts-styled';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { nanoid } from 'nanoid';
 import { addContact } from 'Redux/contactsThunk';
 
 export function FormContacts() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const dataContact = { name, number };
+  const dataContact = { name, phone: number };
 
-  const contacts = useSelector(state => state.contacts);
+  const { items } = useSelector(state => state.contacts);
 
   const dispatch = useDispatch();
 
@@ -29,13 +27,13 @@ export function FormContacts() {
     }
 
     const toFind = name.toLowerCase();
-    if (contacts.find(item => item.name.toLowerCase() === toFind)) {
+    if (items.find(item => item.name.toLowerCase() === toFind)) {
       alert(`${name} is alrady in contacts`);
-      setName(contacts.name);
-      setNumber(contacts.number);
+      // setName(contacts.name);
+      // setNumber(contacts.number);
     } else {
-      const createContact = { ...dataContact, id: nanoid() };
-      dispatch(addContact(createContact));
+      // const createContact = { ...dataContact};
+      dispatch(addContact(dataContact));
       resetInput();
     }
   };

@@ -6,8 +6,8 @@ import {
   handleFulfilledGet,
   handlePending,
   handleRejected,
-} from './handleStatusContacts';
-import { initialState } from './initialState';
+} from './handleStatusContact/handleStatusContacts';
+import { initialState } from './initialState/initialState';
 
 export const contactsSlice = createSlice({
   name: 'contacts',
