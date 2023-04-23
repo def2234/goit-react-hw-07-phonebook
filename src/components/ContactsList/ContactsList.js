@@ -3,10 +3,10 @@ import { Btn } from './ContactsList-styled';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteContact, fetchContacts } from 'Redux/contactsThunk';
+import { getItems } from 'Redux/selectors';
 
 export const ContactsList = () => {
-  const { items, isLoading, error } = useSelector(state => state.contacts);
-  console.log(items);
+  const contacts = useSelector(getItems);
 
   const filter = useSelector(state => state.filter);
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ export const ContactsList = () => {
   }, [dispatch]);
 
   const normalizedName = filter.toLowerCase();
-  const filterContact = items.filter(contact =>
+  const filterContact = contacts.filter(contact =>
     contact.name.toLowerCase().includes(normalizedName)
   );
 
