@@ -15,3 +15,20 @@ export const Btn = styled.button`
     background-color: #c0f3fa;
   }
 `;
+
+export const P = styled.p`
+  font-weight: 500;
+  margin: 0;
+  margin-right: 10px;
+`;
+
+export const ListItem = styled.li`
+  display: flex;
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+`;
+
+export const Span = styled.span`
+  text-decoration: underline;
+`;

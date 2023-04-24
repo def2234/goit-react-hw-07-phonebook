@@ -1,19 +1,21 @@
 import { useEffect } from 'react';
-import { Btn } from './ContactsList-styled';
+import { Btn, ListItem, P, Span } from './ContactsList-styled';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { deleteContact, fetchContacts } from 'Redux/contactsThunk';
-import { getError, getIsLoading, getItems } from 'Redux/selector/selectors';
+import { deleteContact, fetchContacts } from 'Redux/operationsApi';
+import {
+  getError,
+  getFilter,
+  getIsLoading,
+  getItems,
+} from 'Redux/selectors/selectors';
 
 export const ContactsList = () => {
   const items = useSelector(getItems);
   const error = useSelector(getError);
   const isLoading = useSelector(getIsLoading);
-  console.log(error);
-  console.log(isLoading);
-  console.log(items);
 
-  const filter = useSelector(state => state.filter);
+  const filter = useSelector(getFilter);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,17 +29,20 @@ export const ContactsList = () => {
 
   return (
     <ul>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       {filterContact.map(contact => {
         return (
-          <li key={contact.id}>
-            {contact.name}: {contact.number}
+          <ListItem key={contact.id}>
+            <P>{contact.name}:</P>
+            <Span>{contact.phone}</Span>
             <Btn
               type="button"
               onClick={() => dispatch(deleteContact(contact.id))}
             >
               Delete
             </Btn>
-          </li>
+          </ListItem>
         );
       })}
     </ul>

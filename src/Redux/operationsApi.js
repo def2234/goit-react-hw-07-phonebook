@@ -6,13 +6,13 @@ import {
 } from 'contactsApi/contactsApi';
 
 export const fetchContacts = createAsyncThunk('contacts/fetchAll', () => {
-  getContacts();
+  return getContacts();
 });
 
 export const addContact = createAsyncThunk('contacts/addContact', data => {
-  createContacts(data);
+  return createContacts(data);
 });
 
 export const deleteContact = createAsyncThunk('contacts/deleteContact', id => {
-  deleteContacts(id);
+  return deleteContacts(id);
 });

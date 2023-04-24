@@ -1,19 +1,19 @@
 import { useState } from 'react';
 import { Form, Btn, Label, P, Input } from './FormContacts-styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'Redux/contactsThunk';
+import { addContact } from 'Redux/operationsApi';
+import { getItems } from 'Redux/selectors/selectors';
 
 export function FormContacts() {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dataContact = { name, phone: number };
 
-  const { items } = useSelector(state => state.contacts);
+  const items = useSelector(getItems);
 
   const dispatch = useDispatch();
 
   const handleInputChange = ({ target }) => {
-    console.log(target.name);
     if (target.name === 'name') {
       setName(target.value);
     } else {
@@ -25,17 +25,19 @@ export function FormContacts() {
     if (name === '') {
       return;
     }
-
     const toFind = name.toLowerCase();
     if (items.find(item => item.name.toLowerCase() === toFind)) {
       alert(`${name} is alrady in contacts`);
-      // setName(contacts.name);
-      // setNumber(contacts.number);
     } else {
-      // const createContact = { ...dataContact};
+      console.log(dataContact);
       dispatch(addContact(dataContact));
       resetInput();
     }
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    handleAddContact();
   };
 
   const resetInput = () => {
@@ -44,7 +46,7 @@ export function FormContacts() {
   };
 
   return (
-    <Form>
+    <Form onSubmit={handleSubmit}>
       <Label>
         <P>Name</P>
         <Input
